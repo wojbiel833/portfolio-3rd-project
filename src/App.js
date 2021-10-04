@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import {
-  createMuiTheme,
+  createTheme,
   StylesProvider,
   ThemeProvider,
 } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ import { MainLayout } from './components/layout/MainLayout/MainLayout';
 import { Homepage } from './components/views/Homepage/Homepage';
 import { NotFound } from './components/views/NotFound/NotFound';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: { main: '#2B4C6F' },
   },

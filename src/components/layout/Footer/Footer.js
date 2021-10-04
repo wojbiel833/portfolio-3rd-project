@@ -6,23 +6,14 @@ import clsx from 'clsx';
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
-import styles from './Header.module.scss';
+import styles from './Footer.module.scss';
 
-const Component = ({ className }) => (
+const Component = ({ className, children }) => (
   <div className={clsx(className, styles.root)}>
-    <h1 className={clsx(className, styles.text)}>
-      <p>Witaj w naszym Studio!</p>
-      <span>
-        Dołącz do naszej szkoły i naucz się jogicznego tańca świadomości razem z
-        nami!
-      </span>
-    </h1>
-    <img
-      className={clsx(className, styles.image)}
-      src="https://i.ibb.co/RcmRjxv/pexels-alexy-almond-3758056-1.jpg"
-      alt="pexels-alexy-almond-3758056-1"
-      border="0"
-    />
+    <div className={clsx(className, styles.text)}>
+      <h3>Created by: Wojcieh Bielecki</h3>
+      <p>All rights reserved</p>
+    </div>
   </div>
 );
 
@@ -42,7 +33,7 @@ Component.propTypes = {
 // const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as Header,
-  // Container as Header,
-  Component as HeaderComponent,
+  Component as Footer,
+  // Container as Footer,
+  Component as FooterComponent,
 };

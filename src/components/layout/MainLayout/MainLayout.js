@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { NavBar } from '../NavBar/NavBar';
+import { Footer } from '../Footer/Footer';
+import { Header } from '../Header/Header';
+
 import clsx from 'clsx';
 
 // import { connect } from 'react-redux';
@@ -8,10 +12,13 @@ import clsx from 'clsx';
 
 import styles from './MainLayout.module.scss';
 
-const Component = ({className, children}) => (
+const Component = ({ className, children }) => (
   <div className={clsx(className, styles.root)}>
+    <NavBar />
+    <Header />
     <h2>MainLayout</h2>
     {children}
+    <Footer />
   </div>
 );
 
