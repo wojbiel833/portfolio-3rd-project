@@ -2,6 +2,12 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import { MainLayout } from './components/layout/MainLayout/MainLayout';
+import { Homepage } from './components/views/Homepage/Homepage';
+import { NotFound } from './components/views/NotFound/NotFound';
+
+import './styles/bootstrap.scss';
+
 import {
   createTheme,
   StylesProvider,
@@ -10,10 +16,6 @@ import {
 import { CssBaseline } from '@material-ui/core';
 
 import { store } from './redux/store';
-
-import { MainLayout } from './components/layout/MainLayout/MainLayout';
-import { Homepage } from './components/views/Homepage/Homepage';
-import { NotFound } from './components/views/NotFound/NotFound';
 
 const theme = createTheme({
   palette: {

@@ -3,24 +3,28 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-import { FeatureBoxes } from '../../features/FeatureBoxes/FeatureBoxes';
-
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
-import styles from './Homepage.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Component = ({ className, children }) => (
+import styles from './FeatureBox.module.scss';
+
+const Component = ({ className, children, icon }) => (
   <div className={clsx(className, styles.root)}>
-    <h2>Homepage</h2>
-    <FeatureBoxes />
-    {children}
+    {icon && (
+      <a href="#" className={styles.iconWrapper}>
+        <FontAwesomeIcon className={styles.icon} icon={icon} />
+      </a>
+    )}
+    <div className={styles.content}>{children}</div>
   </div>
 );
 
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  icon: PropTypes.object,
 };
 
 // const mapStateToProps = state => ({
@@ -34,7 +38,7 @@ Component.propTypes = {
 // const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as Homepage,
-  // Container as Homepage,
-  Component as HomepageComponent,
+  Component as FeatureBox,
+  // Container as FeatureBox,
+  Component as FeatureBoxComponent,
 };
