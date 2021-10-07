@@ -7,6 +7,7 @@ import clsx from 'clsx';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Header.module.scss';
+import { StyledButton } from '../../common/StyledButton/StyledButton';
 
 const Component = ({ className }) => (
   <div className={clsx(className, styles.root)}>
@@ -23,6 +24,7 @@ const Component = ({ className }) => (
       alt="pexels-alexy-almond-3758056-1"
       border="0"
     />
+    <StyledButton />
   </div>
 );
 

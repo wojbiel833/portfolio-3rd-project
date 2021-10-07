@@ -1,0 +1,70 @@
+@import '../../../styles/settings.scss';
+
+.headerBtn {
+  position: relative;
+
+  a {
+    bottom: 50px;
+    left: 65%;
+    text-decoration: none;
+    border: 3px solid $base-color;
+    color: transparent;
+    padding: 25px 40px;
+    font-size: 35px;
+    font-family: $header-font;
+    font-weight: 900;
+    letter-spacing: 5px;
+    transition: all 0.5s;
+    position: absolute;
+  }
+  a:before {
+    content: 'Zapisz się teraz';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $base-color;
+    background: rgb(59, 59, 59);
+    font-size: 35px;
+    top: 0;
+    left: 100%;
+    font-family: $header-font;
+    font-weight: 900;
+    letter-spacing: 5px;
+    transition: all 1s;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transform: scale(0) rotatey(0);
+    opacity: 0;
+  }
+  a:hover:before {
+    transform: scale(1) rotatey(360deg);
+    left: 0;
+    opacity: 1;
+  }
+  a:after {
+    content: 'Zapisz się teraz';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $base-color;
+    background: hsla(0, 0%, 40%, 0.329);
+    font-size: 35px;
+    top: 0;
+    left: 0;
+    font-family: $header-font;
+    font-weight: 900;
+    letter-spacing: 5px;
+    transition: all 1s;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transform: scale(1) rotatey(0);
+    opacity: 1;
+  }
+  a:hover:after {
+    transform: scale(0) rotatey(360deg);
+    left: -100%;
+    opacity: 0;
+  }
+}
