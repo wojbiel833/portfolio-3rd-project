@@ -10,7 +10,9 @@ import styles from './StyledButton.module.scss';
 
 const Component = ({ className, children }) => (
   <div className={clsx(className, styles.headerBtn)}>
-    <a href="#">Zapisz się teraz</a>
+    <a className={clsx(className, styles.btn)} href="#">
+      Zapisz się teraz
+    </a>
   </div>
 );
 

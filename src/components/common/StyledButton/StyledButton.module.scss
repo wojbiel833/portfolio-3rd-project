@@ -3,7 +3,7 @@
 .headerBtn {
   position: relative;
 
-  a {
+  .btn {
     bottom: 50px;
     left: 65%;
     text-decoration: none;
@@ -17,7 +17,8 @@
     transition: all 0.5s;
     position: absolute;
   }
-  a:before {
+
+  .btn:before {
     content: 'Zapisz się teraz';
     display: flex;
     justify-content: center;
@@ -37,12 +38,14 @@
     transform: scale(0) rotatey(0);
     opacity: 0;
   }
-  a:hover:before {
+
+  .btn:hover:before {
     transform: scale(1) rotatey(360deg);
     left: 0;
     opacity: 1;
   }
-  a:after {
+
+  .btn:after {
     content: 'Zapisz się teraz';
     display: flex;
     justify-content: center;
@@ -62,9 +65,112 @@
     transform: scale(1) rotatey(0);
     opacity: 1;
   }
+
   a:hover:after {
     transform: scale(0) rotatey(360deg);
     left: -100%;
     opacity: 0;
+  }
+}
+
+@media (max-width: 1000px) {
+  .headerBtn {
+    .btn {
+      left: 65%;
+      padding: 20px 30px;
+      font-size: 30px;
+    }
+
+    .btn:before {
+      font-size: 30px;
+    }
+
+    .btn:after {
+      font-size: 30px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .headerBtn {
+    .btn {
+      left: 65%;
+      padding: 10px 15px;
+      font-size: 23px;
+    }
+
+    .btn:before {
+      font-size: 23px;
+    }
+
+    .btn:after {
+      font-size: 23px;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .headerBtn {
+    .btn {
+      left: 60%;
+      padding: 10px 15px;
+      font-size: 18px;
+    }
+
+    .btn:before {
+      font-size: 18px;
+    }
+
+    .btn:after {
+      font-size: 18px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .headerBtn {
+    .btn {
+      left: 55%;
+      padding: 10px 15px;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .headerBtn {
+    .btn {
+      left: 50%;
+      bottom: 30px;
+      padding: 10px 15px;
+    }
+
+    .btn:before {
+    }
+
+    .btn:after {
+    }
+  }
+}
+@media (max-width: 400px) {
+  .headerBtn {
+    .btn {
+      left: 47%;
+    }
+  }
+}
+@media (max-width: 400px) {
+  .headerBtn {
+    .btn {
+      left: 50%;
+      font-size: 10px;
+    }
+
+    .btn:before {
+      font-size: 10px;
+    }
+
+    .btn:after {
+      font-size: 10px;
+    }
   }
 }

@@ -21,13 +21,69 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: $header-font;
-    font-size: 58px;
+    font-size: 55px;
     color: $base-font-color;
     width: 75%;
 
     p {
       font-size: 100px;
       margin: 0;
+    }
+  }
+}
+
+@media (max-width: 1250px) {
+  .root {
+    .text {
+      font-size: 40px;
+
+      p {
+        font-size: 80px;
+      }
+    }
+  }
+}
+
+@media (max-width: 921px) {
+  .root {
+    .text {
+      font-size: 30px;
+      p {
+        font-size: 70px;
+      }
+    }
+  }
+}
+
+@media (max-width: 776px) {
+  .root {
+    .text {
+      font-size: 25px;
+      p {
+        font-size: 55px;
+      }
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .root {
+    .text {
+      font-size: 20px;
+      p {
+        font-size: 45px;
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .root {
+    .text {
+      font-size: 16px;
+      p {
+        font-size: 34px;
+      }
     }
   }
 }

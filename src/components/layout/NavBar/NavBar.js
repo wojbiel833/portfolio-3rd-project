@@ -3,8 +3,15 @@ import PropTypes from 'prop-types';
 
 // import clsx from 'clsx';
 
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+import {
+  // logIn,
+  createActionLogIn,
+  createActionLogOut,
+  createActionLogInAdmin,
+  createActionLogOutAdmin,
+} from '../../../redux/navbarRedux.js';
 
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -22,9 +29,15 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Switch from '@mui/material/Switch';
+import { Container as NavContainer } from '@mui/material';
 
 // import styles from './NavBar.module.scss';
 
+// MUI STYLES--------------------------------------------------
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -64,11 +77,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: '#3d7c3d',
 }));
 
-const Component = ({ className, children }) => {
+const StyledFormGroup = styled(FormGroup)(({ theme }) => ({
+  flexDirection: 'row',
+  display: 'inline-flex',
+}));
+
+// COMPONENT-------------------------------------------------
+function Component(props) {
+  const { isLogged, isAdmin, logIn, logOut, logInAdmin, logOutAdmin } = props;
+
+  // COMPONENT SETTINGS --------------------------------------
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -166,105 +189,139 @@ const Component = ({ className, children }) => {
     </Menu>
   );
 
+  // RENDERING--------------------------------------------------
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <StyledAppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            "Jognięci" - Twoja szkoła jogi
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+      <StyledFormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              // checked={logInOut}
+              onChange={isLogged ? logOut : logIn}
+              aria-label="login switch"
             />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          }
+          label={isLogged ? 'Logout' : 'Login'}
+        />
+        <FormControlLabel
+          value="admin"
+          onChange={isAdmin ? logOutAdmin : logInAdmin}
+          control={<Checkbox />}
+          label="Admin"
+          labelPlacement="end"
+        />
+      </StyledFormGroup>
+      <StyledAppBar position="sticky">
+        <NavContainer maxWidth="lg">
+          <Toolbar>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
+              edge="start"
               color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
             >
-              <Badge badgeContent={4} color="error">
-                <ShoppingBasketIcon />
-              </Badge>
+              <MenuIcon />
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block' } }}
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
+              "Jognięci" - Twoja szkoła jogi
+            </Typography>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge badgeContent={4} color="error">
+                  <ShoppingBasketIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </NavContainer>
       </StyledAppBar>
+
       {renderMobileMenu}
       {renderMenu}
     </Box>
   );
-};
+}
 
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  isLogged: PropTypes.bool,
+  logIn: PropTypes.func,
+  logOut: PropTypes.func,
+  isAdmin: PropTypes.bool,
+  logInAdmin: PropTypes.func,
+  logOutAdmin: PropTypes.func,
+  // isUser: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
+const mapStateToProps = state => ({
+  isLogged: state.login.loggedIn,
+  isAdmin: state.login.admin,
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  logIn: () => dispatch(createActionLogIn(true)),
+  logOut: () => dispatch(createActionLogOut(false)),
+  logInAdmin: () => dispatch(createActionLogInAdmin(true)),
+  logOutAdmin: () => dispatch(createActionLogOutAdmin(false)),
+});
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as NavBar,
-  // Container as NavBar,
+  // Component as NavBar,
+  Container as NavBar,
   Component as NavBarComponent,
 };

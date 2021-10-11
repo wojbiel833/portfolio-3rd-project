@@ -1,9 +1,11 @@
 export const initialState = {
-  posts: {
-    data: {},
-    loading: {
-      active: false,
-      error: false,
-    },
-  },
+  login: { loggedIn: true, email: 'example2@gmail.com', admin: false },
+
+  // posts: {
+  //   data: {},
+  //   loading: {
+  //     active: false,
+  //     error: false,
+  //   },
+  // },
 };
