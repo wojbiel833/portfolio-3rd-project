@@ -78,8 +78,23 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .root {
+    height: 80%;
+  }
+}
+
 @media (max-width: 992px) {
   .root {
-    height: 70%;
+    height: 80%;
+  }
+}
+@media (max-width: 850px) {
+  .root {
+    height: 90%;
+
+    .content {
+      font-size: 15px;
+    }
   }
 }

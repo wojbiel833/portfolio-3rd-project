@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-import { FeatureBoxes } from '../../features/FeatureBoxes/FeatureBoxes';
-import { Products } from '../../features/Products/Products';
-
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
-import styles from './Homepage.module.scss';
+import styles from './Products.module.scss';
 
-const Component = ({ className, children }) => (
+const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
-    <FeatureBoxes className="FeatureBoxes" />
-    <Products className="Products" />
+    <h2>Products</h2>
     {children}
   </div>
 );
@@ -35,7 +31,7 @@ Component.propTypes = {
 // const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as Homepage,
-  // Container as Homepage,
-  Component as HomepageComponent,
+  Component as Products,
+  // Container as Products,
+  Component as ProductsComponent,
 };

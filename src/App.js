@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { MainLayout } from './components/layout/MainLayout/MainLayout';
 import { Homepage } from './components/views/Homepage/Homepage';
 import { NotFound } from './components/views/NotFound/NotFound';
-
+import { Products } from '../src/components/features/Products/Products';
 import './styles/bootstrap.scss';
 
 import {
@@ -31,8 +31,14 @@ const App = () => (
           <CssBaseline />
           <MainLayout>
             <Switch>
-              <Route exact path="/" component={Homepage} />
-              <Route path="*" component={NotFound} />
+              <Route className="Homepage" exact path="/" component={Homepage} />
+              <Route
+                className="Products"
+                exact
+                path="/products"
+                component={Products}
+              />
+              <Route className="NotFound" path="*" component={NotFound} />
             </Switch>
           </MainLayout>
         </ThemeProvider>

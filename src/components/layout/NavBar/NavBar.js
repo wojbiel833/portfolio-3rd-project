@@ -27,7 +27,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import ViewArrayIcon from '@mui/icons-material/Notifications';
+import ViewArrayIcon from '@mui/icons-material/ViewArray';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -132,8 +133,8 @@ function Component(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Profil</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Twoje Konto</MenuItem>
     </Menu>
   );
 
@@ -169,7 +170,7 @@ function Component(props) {
           color="inherit"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <ViewArrayIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -244,6 +245,18 @@ function Component(props) {
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton
                 size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge>
+                  <p style={{ fontSize: '18px', marginBottom: 0 }}>
+                    Strona główna
+                  </p>
+                  {/* <ViewArrayIcon /> */}
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
               >
@@ -251,15 +264,7 @@ function Component(props) {
                   <ShoppingBasketIcon />
                 </Badge>
               </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+
               <IconButton
                 size="large"
                 edge="end"
