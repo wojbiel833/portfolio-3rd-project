@@ -1,4 +1,14 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  text-align: center;
+
+  .productsTitle {
+    font-family: $secondary-font;
+    // color: $second-font-color;
+    font-size: 40px;
+  }
+
+  .products {
+  }
+}

@@ -24,25 +24,30 @@ const Component = ({ className, children }) => (
         <div className="col-6 col-lg-3">
           <FeatureBox icon={faBullhorn} active>
             <h5>Mentoring</h5>
-            <p>Dla chetnych</p>
+            <p className="paragraph">
+              Dla chetnych, którzy są już doświadczeni
+            </p>
           </FeatureBox>
         </div>
         <div className="col-6 col-lg-3">
           <FeatureBox icon={faHeart}>
             <h5>Różnorodne zajęcia</h5>
-            <p>prowadzone przez doświadczonych nauczycieli</p>
+            <p className="paragraph">z doświadczonymi nauczycieliami</p>
           </FeatureBox>
         </div>
         <div className="col-6 col-lg-3">
           <FeatureBox icon={faCreditCard}>
             <h5>Karnety</h5>
-            <p>możliwość zakupu</p>
+            <p className="paragraph">możliwość zakupu na różne okresy czasu</p>
           </FeatureBox>
         </div>
         <div className="col-6 col-lg-3">
           <FeatureBox icon={faSchool}>
             <h5>Pierwsza lekcja</h5>
-            <p>GRATIS!</p>
+            <p className="paragraph">
+              GRATIS! <br />
+              Zapisz sie teraz!
+            </p>
           </FeatureBox>
         </div>
       </div>
