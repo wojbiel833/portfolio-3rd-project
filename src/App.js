@@ -6,7 +6,9 @@ import { MainLayout } from './components/layout/MainLayout/MainLayout';
 import { Homepage } from './components/views/Homepage/Homepage';
 import { NotFound } from './components/views/NotFound/NotFound';
 import { Products } from '../src/components/features/Products/Products';
-import './styles/bootstrap.scss';
+import { ProductPage } from '../src/components/views/ProductPage/ProductPage';
+
+import { store } from './redux/store';
 
 import {
   createTheme,
@@ -15,7 +17,7 @@ import {
 } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
-import { store } from './redux/store';
+import './styles/bootstrap.scss';
 
 const theme = createTheme({
   palette: {
@@ -37,6 +39,12 @@ const App = () => (
                 exact
                 path="/products"
                 component={Products}
+              />
+              <Route
+                className="Product"
+                exact
+                path="/product/:id"
+                component={ProductPage}
               />
               <Route className="NotFound" path="*" component={NotFound} />
             </Switch>
