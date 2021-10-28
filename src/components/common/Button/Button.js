@@ -8,7 +8,6 @@ import { Icon } from '../Icon/Icon';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import styles from './Button.module.scss';
-import { maxWidth } from '@mui/system';
 
 const StyledButton = styled(Button)(({ theme }) => ({
   color: '#FFFFFF',
@@ -19,7 +18,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
     color: '#FFFFFF',
     backgroundColor: '#3d7c3d',
   },
-  // @media (maxWidth: 1000px)
 }));
 
 const Component = ({

@@ -31,8 +31,8 @@ const Component = ({
               <div className={clsx(className, styles.productPhoto)}>
                 <img
                   className={clsx(className, styles.photo)}
-                  src={product.photo}
-                  alt={product.photo}
+                  src={product.photo1}
+                  alt={product.photo1}
                 />
               </div>
               <div className={clsx(className, styles.productDescription)}>
@@ -42,7 +42,9 @@ const Component = ({
                 <p className={clsx(className, styles.description)}>
                   {product.description}
                 </p>
-                <p className={clsx(className, styles.price)}>{product.price}</p>
+                <p className={clsx(className, styles.price)}>
+                  {product.price.priceMin}
+                </p>
 
                 <Button
                   className={clsx(className, styles.button)}
