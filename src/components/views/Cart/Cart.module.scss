@@ -10,43 +10,69 @@
     color: $feature-border-color;
     margin-bottom: 30px;
   }
-  .content {
-    margin-bottom: 20px;
 
-    .head {
+  .cart {
+    .product {
+      display: flex;
+      flex-flow: row nowrap;
       width: 100%;
-      display: inline-flex;
-      flex-flow: row wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
+      height: 70px;
+      border: 1px solid $feature-border-color;
+      font-size: 18px;
+      margin: 10px 0;
 
-    .inputs {
-      margin-bottom: 20px;
-      width: 100%;
+      .info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
 
-      .input:first-of-type {
-        margin-bottom: 20px;
+        p {
+          display: inline-block;
+          margin: 0;
+        }
+
+        .productName {
+          margin-left: 15px;
+          text-align: left;
+        }
+      }
+
+      .edit {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
+
+        input {
+          height: 30px;
+        }
+        .amount {
+          width: 45px;
+          margin: 0 10px;
+        }
+
+        .comment {
+          width: 350px;
+        }
+
+        .button {
+          margin-right: 15px;
+        }
       }
     }
-  }
 
-  .dates,
-  .contact {
-    display: inline-flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    width: 100%;
+    .summary {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 20px;
+      padding: 15px;
+      .summaryName {
+        margin-right: 15px;
+      }
 
-    div {
-      margin: 10px;
-      display: inline-flex;
-
-      h4,
-      p {
-        margin: auto 10px;
-        display: inline;
-        align-items: center;
+      .totalPrice {
+        font-weight: 700;
       }
     }
   }

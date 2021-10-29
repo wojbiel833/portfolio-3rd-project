@@ -7,6 +7,24 @@ import { reducer as navbarRedux } from './navbarRedux';
 import { reducer as productsReducer } from './productsRedux';
 const initialState = {
   login: { loggedIn: true, email: 'example2@gmail.com', admin: false },
+  cart: [
+    {
+      id: 1,
+      title: 'Zajęcia dla par',
+      price: 1800,
+      priceDescription: '1800zł karnet na 30 spotkań',
+      amount: 1,
+      additionalComment: 'Początkujący jogni',
+    },
+    {
+      id: 2,
+      title: 'Zajęcia w plenerze',
+      price: 1000,
+      priceDescription: '1000zł karnet na 10 spotkań',
+      amount: 2,
+      additionalComment: '...',
+    },
+  ],
   products: {
     data: [
       {

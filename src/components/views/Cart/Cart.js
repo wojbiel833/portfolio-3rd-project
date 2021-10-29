@@ -1,151 +1,246 @@
+// import React from 'react';
+// import PropTypes from 'prop-types';
+
+// import clsx from 'clsx';
+// import { Button } from '../../common/Button/Button';
+
+// import { connect } from 'react-redux';
+// // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+// import { faSave } from '@fortawesome/free-solid-svg-icons';
+
+// // import TextField from '@mui/material/TextField';
+
+// import styles from './Cart.module.scss';
+// import { Form } from '../../features/Form/Form';
+
+// const countSummaryPrice = (price, amount) => {
+//   console.log(cart);
+//   let sum = 0;
+
+//   let productPrice= price * amount;
+
+//   return sum += productPrice;
+// };
+
+// const Component = ({ className, children, cart }) => {
+//   console.log(cart);
+//   return (
+//     <div className={clsx(className, styles.root)}>
+//       <h2 className={clsx(className, styles.title)}>Twój koszyk</h2>
+//       <div className={clsx(className, styles.cart)}>
+//         {cart.map(product => (
+//           <div className={clsx(className, styles.product)} key={product.id}>
+//             <span className={clsx(className, styles.info)}>
+//               <p className={clsx(className, styles.productName)}>
+//                 {product.title} - {product.priceDescription}
+//               </p>
+//               <p className={clsx(className, styles.price)}>
+//                 {product.price} zł
+//               </p>
+//             </span>
+//             <span className={clsx(className, styles.edit)}>
+//               <input
+//                 className={clsx(className, styles.amount)}
+//                 // onChange={}
+//                 value={product.amount}
+//                 step="1"
+//                 min="1"
+//                 max="9"
+//                 type="number"
+//                 // id={`amount${priceVariant.price}`}
+//                 // name={`amount${priceVariant.price}`}
+//               />
+//               <input
+//                 className={clsx(className, styles.comment)}
+//                 placeholder="Dodatkowy komentarz"
+//                 // onChange={}
+//                 value={product.additionalComment}
+//                 type="text"
+//                 // id={`amount${priceVariant.price}`}
+//                 // name={`amount${priceVariant.price}`}
+//               />
+//               <Button
+//                 className={clsx(className, styles.button)}
+//                 icon={faSave}
+//                 name="zapisz"
+//                 to=""
+//               />
+//             </span>
+//           </div>
+//         ))}
+//         <div className={clsx(className, styles.summary)}>
+//           <p className={clsx(className, styles.summaryName)}>Cena całkowita:</p>
+//           <p className={clsx(className, styles.totalPrice)}> zł</p>
+//         </div>
+//       </div>
+
+//       {/* {children} */}
+//       <Form />
+//     </div>
+//   );
+// };
+
+// Component.propTypes = {
+//   children: PropTypes.node,
+//   className: PropTypes.string,
+//   cart: PropTypes.array,
+// };
+
+// const mapStateToProps = state => ({
+//   cart: state.cart,
+// });
+
+// const mapDispatchToProps = dispatch => ({
+//   // someAction: arg => dispatch(reduxActionCreator(arg)),
+// });
+
+// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+
+// export {
+//   // Component as Cart,
+//   Container as Cart,
+//   Component as CartComponent,
+// };
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 import { Button } from '../../common/Button/Button';
 
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
-import TextField from '@mui/material/TextField';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+
+// import TextField from '@mui/material/TextField';
 
 import styles from './Cart.module.scss';
+import { Form } from '../../features/Form/Form';
 
-const Component = ({ className, children }) => (
-  <div className={clsx(className, styles.root)}>
-    <h2 className={clsx(className, styles.title)}>Twój koszyk</h2>
-    <div className={clsx(className, styles.yourCart)}></div>
-    <form
-      className={clsx(className, styles.root)}
-      id="formElem"
-      // onSubmit={submitForm}
-    >
-      <div className={clsx(className, styles.content)}>
-        <div className={clsx(className, styles.head)}>
-          <h2 className={clsx(className, styles.title)}>Dane do wysyłki</h2>
-          <Button
-            className="Button"
-            name="Dodaj ogłoszenie"
-            // icon={faPlusCircle}
-            type="submit"
-            to=""
-            // onClick={submitForm}
-          />
-        </div>
-        <div className={clsx(className, styles.inputs)}>
-          <TextField
-            className={clsx(className, styles.input)}
-            id="filled-error-helper-text"
-            label="Tytuł ogłoszenia*"
-            placeholder="Tytuł ogłoszenia"
-            variant="filled"
-            fullWidth={true}
-            minLength={10}
-            name="name"
-            type="name"
-            // value={this.state.post.name}
-            // onChange={e => this.setPostParam('name', e.target.value)}
-          />
+class Component extends React.Component {
+  render() {
+    const {
+      className,
+      children,
+      cart,
+      id,
+      title,
+      price,
+      amount,
+      additionalComment,
+    } = this.props;
 
-          <TextField
-            className={clsx(className, styles.input)}
-            id="outlined-multiline-static"
-            label="Treść ogłoszenia*"
-            multiline
-            rows={8}
-            placeholder="Kupie/Sprzedam/Zamienię/Wynajmę..."
-            fullWidth={true}
-            minLength={20}
-            name="content"
-            type="content"
-            // value={this.state.post.content}
-            // onChange={e => this.setPostParam('content', e.target.value)}
-          />
+    const countSummaryPrice = cart => {
+      console.log(cart);
+      let prices = [];
+      let amounts = [];
+
+      cart.filter(p => {
+        prices.push(p.price);
+        amounts.push(p.amount);
+      });
+
+      console.log(prices);
+      console.log(amounts);
+
+      let sum = 0;
+      let productPrice = 0;
+      let totalPrice = 0;
+      for (let i = 0; i <= prices.length - 1; i++) {
+        productPrice = prices[i] * amounts[i];
+        // console.log(prices[i]);
+        // console.log(amounts[i]);
+        totalPrice = sum += productPrice;
+        console.log(totalPrice);
+      }
+      console.log(totalPrice);
+      return totalPrice;
+    };
+
+    return (
+      <div className={clsx(className, styles.root)}>
+        <h2 className={clsx(className, styles.title)}>Twój koszyk</h2>
+        <div className={clsx(className, styles.cart)}>
+          {cart.map(product => (
+            <div className={clsx(className, styles.product)} key={product.id}>
+              <span className={clsx(className, styles.info)}>
+                <p className={clsx(className, styles.productName)}>
+                  {product.title} - {product.priceDescription}
+                </p>
+                <p className={clsx(className, styles.price)}>
+                  {product.price} zł
+                </p>
+              </span>
+              <span className={clsx(className, styles.edit)}>
+                <input
+                  className={clsx(className, styles.amount)}
+                  // onChange={}
+                  value={product.amount}
+                  step="1"
+                  min="1"
+                  max="9"
+                  type="number"
+                  // id={`amount${priceVariant.price}`}
+                  // name={`amount${priceVariant.price}`}
+                />
+                <input
+                  className={clsx(className, styles.comment)}
+                  placeholder="Dodatkowy komentarz"
+                  // onChange={}
+                  value={product.additionalComment}
+                  type="text"
+                  // id={`amount${priceVariant.price}`}
+                  // name={`amount${priceVariant.price}`}
+                />
+                <Button
+                  className={clsx(className, styles.button)}
+                  icon={faSave}
+                  name="zapisz"
+                  to=""
+                />
+              </span>
+            </div>
+          ))}
+          <div className={clsx(className, styles.summary)}>
+            <p className={clsx(className, styles.summaryName)}>
+              Cena całkowita:
+            </p>
+            <p className={clsx(className, styles.totalPrice)}>
+              {countSummaryPrice(cart)} zł
+            </p>
+          </div>
         </div>
+
+        {/* {children} */}
+        <Form />
       </div>
-      <div className={clsx(className, styles.contact)}>
-        <div>
-          <TextField
-            className={clsx(className, styles.input)}
-            id="outlined-multiline-static"
-            label="E-mail*"
-            rows={1}
-            placeholder="example@gmail.com"
-            name="email"
-            type="email"
-            // value={this.state.post.email}
-            // onChange={e => this.setPostParam('email', e.target.value)}
-          />
-        </div>
-        <div>
-          <TextField
-            className={clsx(className, styles.input)}
-            id="outlined-multiline-static"
-            label="Telefon"
-            rows={1}
-            placeholder="0 700 880 774"
-            name="phone"
-            type="phone"
-            // value={this.state.post.phone}
-            // onChange={e => this.setPostParam('phone', e.target.value)}
-          />
-        </div>
-        <div>
-          <TextField
-            className={clsx(className, styles.input)}
-            id="outlined-multiline-static"
-            label="Lokalizacja*"
-            rows={1}
-            placeholder="Warszawa"
-            name="localization"
-            type="localization"
-            // value={this.state.post.localization}
-            // onChange={e => this.setPostParam('localization', e.target.value)}
-          />
-        </div>
-      </div>
-      <div className={clsx(className, styles.dates)}>
-        <div>
-          <h4>Data publikacji:</h4>
-          {/* <p>{formatDate(new Date())}</p> */}
-        </div>
-        <div>
-          <h4>Status ogłoszenia:</h4>
-          <p>Szkic</p>
-        </div>
-        <div>
-          <h4>Data ostatniej aktualizacji:</h4>
-          <p>
-            {/* {actualisationDate === publicationDate
-              ? formatDate(new Date())
-              : actualisationDate} */}
-          </p>
-        </div>
-      </div>
-      <p className={clsx(className, styles.arsrterisk)}>
-        * Pola oznaczone gwiazdką są wymagane!
-      </p>
-    </form>
-    {/* {children} */}
-  </div>
-);
+    );
+  }
+}
 
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  cart: PropTypes.array,
+  id: PropTypes.number,
+  title: PropTypes.string,
+  price: PropTypes.number,
+  amount: PropTypes.number,
+  additionalComment: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  // someAction: arg => dispatch(reduxActionCreator(arg)),
+});
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as Cart,
-  // Container as Cart,
+  // Component as Cart,
+  Container as Cart,
   Component as CartComponent,
 };

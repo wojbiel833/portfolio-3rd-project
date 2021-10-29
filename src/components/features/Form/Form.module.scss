@@ -1,0 +1,60 @@
+@import '../../../styles/settings.scss';
+
+.root {
+  margin: 50px 0;
+
+  .title {
+    font-family: $secondary-font;
+    font-size: 40px;
+    text-align: center;
+    color: $feature-border-color;
+    margin-bottom: 30px;
+  }
+
+  .content {
+    margin-bottom: 20px;
+
+    .head {
+      width: 100%;
+      display: inline-flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+    }
+
+    .inputs {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+      align-items: space-between;
+      margin-bottom: 20px;
+      width: 100%;
+
+      .group {
+        display: flex;
+        justify-content: space-between;
+
+        .input {
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    .big {
+      width: 30%;
+      display: inline-flex;
+      justify-content: space-between;
+
+      .small {
+        width: 45%;
+      }
+    }
+  }
+
+  .asterisk {
+    color: red;
+    text-align: center;
+    // margin: auto 10px;
+    // display: inline;
+    // align-items: flex-end;
+  }
+}
