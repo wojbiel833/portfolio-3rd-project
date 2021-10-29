@@ -17,8 +17,8 @@ import styles from './MainLayout.module.scss';
 
 const Component = ({ className, children }) => (
   <div className={clsx(className, styles.root)}>
-    {/* <NavBar /> */}
-    {/* <Header /> */}
+    <NavBar />
+    <Header />
     <Container>
       {/* <Homepage /> */}
       {children}

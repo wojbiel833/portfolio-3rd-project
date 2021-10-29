@@ -7,6 +7,7 @@ import { Homepage } from './components/views/Homepage/Homepage';
 import { NotFound } from './components/views/NotFound/NotFound';
 import { Products } from '../src/components/features/Products/Products';
 import { ProductPage } from '../src/components/views/ProductPage/ProductPage';
+import { Cart } from '../src/components/views/Cart/Cart';
 
 import { store } from './redux/store';
 
@@ -46,6 +47,7 @@ const App = () => (
                 path="/product/:id"
                 component={ProductPage}
               />
+              <Route className="Cart" exact path="/cart" component={Cart} />
               <Route className="NotFound" path="*" component={NotFound} />
             </Switch>
           </MainLayout>

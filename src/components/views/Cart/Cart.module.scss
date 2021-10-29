@@ -1,0 +1,53 @@
+@import '../../../styles/settings.scss';
+
+.root {
+  margin: 50px 0;
+
+  .title {
+    font-family: $secondary-font;
+    font-size: 40px;
+    text-align: center;
+    color: $feature-border-color;
+    margin-bottom: 30px;
+  }
+  .content {
+    margin-bottom: 20px;
+
+    .head {
+      width: 100%;
+      display: inline-flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .inputs {
+      margin-bottom: 20px;
+      width: 100%;
+
+      .input:first-of-type {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .dates,
+  .contact {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+
+    div {
+      margin: 10px;
+      display: inline-flex;
+
+      h4,
+      p {
+        margin: auto 10px;
+        display: inline;
+        align-items: center;
+      }
+    }
+  }
+}
