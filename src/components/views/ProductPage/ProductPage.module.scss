@@ -1,6 +1,9 @@
 @import '../../../styles/settings.scss';
 
 .root {
+  display: inline-flex;
+  flex-flow: column nowrap;
+  width: 100%;
   margin: 50px 0;
 
   .title {
@@ -10,12 +13,13 @@
     color: $feature-border-color;
     margin-bottom: 30px;
   }
+
   .product {
     font-family: $primary-font;
     display: inline-flex;
     flex-direction: column-reverse;
-    border: 1px dotted $second-font-color;
-    margin-bottom: auto;
+    margin: auto;
+    align-items: center;
 
     .productPhotos {
       padding: 0;
@@ -27,6 +31,7 @@
     }
 
     .productDescription {
+      border: 1px dotted $second-font-color;
       position: relative;
       display: flex;
       font-family: $primary-font;
@@ -39,6 +44,7 @@
         font-size: 20px;
         margin: 20px 0;
         text-align: center;
+        margin-left: 40px;
       }
 
       .description {
@@ -52,18 +58,19 @@
 
         .priceVariants {
           display: flex;
-
           flex-flow: column wrap;
           justify-content: center;
+          text-align: center;
+          list-style-type: none;
 
           .priceVariant {
             .amount {
               width: 45px;
-              margin-right: 10px;
+              margin: 0 10px 30px 0;
             }
 
             .priceDetail {
-              display: inline;
+              display: block;
               margin-left: 10px;
             }
 
@@ -85,136 +92,24 @@
   }
 }
 
-// @media (max-width: 1000px) {
-//   .root {
-//     .product1 {
-//       .productDescription {
-//         .title {
-//           font-size: 16px;
-//         }
-
-//         .description {
-//           font-size: 13px;
-//         }
-
-//         .price {
-//           font-size: 27px;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// @media (max-width: 768px) {
-//   .root {
-//     .product1 {
-//       .productDescription {
-//         .title {
-//           font-size: 13px;
-//         }
-
-//         .description {
-//           font-size: 11px;
-//         }
-
-//         .price {
-//           font-size: 23px;
-//           margin: 0 0 30px 30px;
-//         }
-
-//         .button {
-//           padding: 30px;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// @media (max-width: 550px) {
-//   .root {
-//     .product1 {
-//       .productPhoto {
-//         width: 100%;
-//       }
-
-//       .productDescription {
-//         text-align: center;
-//         width: 100%;
-//         height: 210px;
-
-//         .price {
-//           font-size: 23px;
-//           margin: 0;
-//           left: 80px;
-//           bottom: 19px;
-//         }
-
-//         .button {
-//           right: 30px;
-//           bottom: 17px;
-//           padding: 0;
-//         }
-//       }
-//     }
-
-//     .product2 {
-//       .productPhoto {
-//         order: 1;
-//       }
-
-//       .productDescription {
-//         order: 2;
-//       }
-//     }
-//   }
-// }
-
-// @media (max-width: 455px) {
-//   .root {
-//     .product1 {
-//       .productDescription {
-//         height: 240px;
-//       }
-//     }
-//   }
-// }
-
-// @media (max-width: 400px) {
-//   .root {
-//     .product1 {
-//       .productDescription {
-//         height: 280px;
-
-//         .price {
-//           margin: 0;
-//           left: 39%;
-//           bottom: 18%;
-//         }
-
-//         .button {
-//           right: 29%;
-//           bottom: 4%;
-//           padding: 0;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// @media (max-width: 370px) {
-//   .root {
-//     .product1 {
-//       .productDescription {
-//         height: 300px;
-
-//         .price {
-//           bottom: 16%;
-//         }
-
-//         .button {
-//           right: 24%;
-//         }
-//       }
-//     }
-//   }
-// }
+@media (max-width: 480px) {
+  .root {
+    .product {
+      .productDescription {
+        .prices {
+          .priceVariants {
+            .priceVariant {
+              margin-bottom: 30px;
+              .amount {
+                margin: 0;
+              }
+              .priceDetail {
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
