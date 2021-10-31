@@ -1,5 +1,6 @@
+import Axios from 'axios';
 /* selectors */
-export const getAll = ({ posts }) => posts.data;
+// export const getAll = ({ posts }) => posts.data;
 export const getProducts = ({ products }, productId) =>
   products.data.filter(product => product.id === productId);
 
@@ -18,6 +19,26 @@ export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 
 /* thunk creators */
+export const fetchProducts = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    const state = getState();
+    // console.log(state);
+
+    if (state.products.data && state.products.loading.active) {
+      Axios.get('http://localhost:8000/api/products')
+        .then(res => {
+          console.log('products res', res);
+
+          dispatch(fetchSuccess(res.data));
+        })
+        .catch(err => {
+          dispatch(fetchError(err.message || true));
+        });
+    }
+  };
+};
 
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {

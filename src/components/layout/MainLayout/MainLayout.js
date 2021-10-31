@@ -8,42 +8,59 @@ import { Homepage } from '../../views/Homepage/Homepage';
 
 import clsx from 'clsx';
 
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { fetchProducts } from '../../../redux/productsRedux';
+
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import { Container } from '@mui/material';
 
 import styles from './MainLayout.module.scss';
 
-const Component = ({ className, children }) => (
-  <div className={clsx(className, styles.root)}>
-    <NavBar className="NavBar" />
-    <Header className="Header" />
-    <Container>
-      {/* <Homepage /> */}
-      {children}
-    </Container>
-    <Footer />
-  </div>
-);
+class Component extends React.Component {
+  componentDidMount() {
+    const { fetchAllProducts } = this.props;
+    fetchAllProducts();
+  }
+
+  render() {
+    const { className, children } = this.props;
+    return (
+      <div className={clsx(className, styles.root)}>
+        <NavBar className="NavBar" />
+        <Header className="Header" />
+        <Container>
+          {/* <Homepage /> */}
+          {children}
+        </Container>
+        <Footer />
+      </div>
+    );
+  }
+}
 
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  fetchAllProducts: PropTypes.func,
+  fetchCartProducts: PropTypes.func,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
+const mapStateToProps = state => ({
+  // someProp: reduxSelector(state),
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  fetchAllProducts: () => dispatch(fetchProducts()),
+});
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const MainLayoutContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Component);
 
 export {
-  Component as MainLayout,
-  // Container as MainLayout,
+  // Component as MainLayout,
+  MainLayoutContainer as MainLayout,
   Component as MainLayoutComponent,
 };

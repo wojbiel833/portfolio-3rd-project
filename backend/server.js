@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 const productsRoutes = require('./routes/products.routes');
+const cartRoutes = require('./routes/cart.routes');
 
 const app = express();
 
@@ -14,10 +15,11 @@ app.use(express.urlencoded({ extended: false }));
 
 /* API ENDPOINTS */
 app.use('/api', productsRoutes);
+app.use('/api', cartRoutes);
 
 /* API ERROR PAGES */
 app.use('/api', (req, res) => {
-  res.status(404).send({ post: 'Not found...' });
+  res.status(404).send({ server: 'Not found...' });
 });
 
 /* REACT WEBSITE */
@@ -32,6 +34,7 @@ mongoose.connect('mongodb://localhost:27017/yogaSchool', {
   useUnifiedTopology: true,
 });
 const db = mongoose.connection;
+console.log(db);
 
 db.once('open', () => {
   console.log('Successfully connected to the database');
