@@ -11,7 +11,7 @@ import styles from './StyledButton.module.scss';
 const Component = ({ className, children }) => (
   <div className={clsx(className, styles.headerBtn)}>
     <a className={clsx(className, styles.btn)} href="#">
-      Zapisz się teraz
+      Nasze produkty
     </a>
   </div>
 );

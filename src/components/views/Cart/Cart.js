@@ -111,6 +111,7 @@ import { Button } from '../../common/Button/Button';
 import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 // import TextField from '@mui/material/TextField';
 
@@ -195,7 +196,13 @@ class Component extends React.Component {
                 <Button
                   className={clsx(className, styles.button)}
                   icon={faSave}
-                  name="zapisz"
+                  // name="zapisz"
+                  to=""
+                />
+                <Button
+                  className={clsx(className, styles.button)}
+                  icon={faTrashAlt}
+                  // name="usuń"
                   to=""
                 />
               </span>

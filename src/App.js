@@ -42,7 +42,7 @@ const App = () => (
                 component={Products}
               />
               <Route
-                className="Product"
+                className="ProductPage"
                 exact
                 path="/product/:id"
                 component={ProductPage}
