@@ -49,7 +49,7 @@ const Component = ({
                 <Button
                   className={clsx(className, styles.button)}
                   name={`Dowiedz się więcej`}
-                  to=""
+                  to={`/products/${product.id}`}
                   icon={faFeatherAlt}
                 ></Button>
               </div>

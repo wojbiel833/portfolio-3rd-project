@@ -8,9 +8,9 @@ import clsx from 'clsx';
 
 import styles from './StyledButton.module.scss';
 
-const Component = ({ className, children }) => (
+const Component = ({ className, children, href }) => (
   <div className={clsx(className, styles.headerBtn)}>
-    <a className={clsx(className, styles.btn)} href="#">
+    <a className={clsx(className, styles.btn)} href={href}>
       Nasze produkty
     </a>
   </div>
@@ -19,6 +19,7 @@ const Component = ({ className, children }) => (
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  href: PropTypes.string,
 };
 
 // const mapStateToProps = state => ({

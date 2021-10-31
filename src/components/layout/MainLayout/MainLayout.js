@@ -10,6 +10,7 @@ import clsx from 'clsx';
 
 import { connect } from 'react-redux';
 import { fetchProducts } from '../../../redux/productsRedux';
+import { fetchCartProducts } from '../../../redux/cartRedux';
 
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
@@ -19,8 +20,9 @@ import styles from './MainLayout.module.scss';
 
 class Component extends React.Component {
   componentDidMount() {
-    const { fetchAllProducts } = this.props;
+    const { fetchAllProducts, fetchCart } = this.props;
     fetchAllProducts();
+    fetchCart();
   }
 
   render() {
@@ -43,7 +45,7 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   fetchAllProducts: PropTypes.func,
-  fetchCartProducts: PropTypes.func,
+  fetchCart: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -52,6 +54,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchAllProducts: () => dispatch(fetchProducts()),
+  fetchCart: () => dispatch(fetchCartProducts()),
 });
 
 const MainLayoutContainer = connect(

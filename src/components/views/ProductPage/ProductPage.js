@@ -15,16 +15,72 @@ import styles from './ProductPage.module.scss';
 import { Carousel } from '../../common/Carousel/Carousel';
 
 class Component extends React.Component {
+  state = {
+    variant: '',
+    price: 0,
+    amount: 0,
+    products: {},
+    error: null,
+  };
+
+  submitCartProduct = e => {
+    e.preventDefault();
+    console.log(e);
+    try {
+      // console.log(this.state);
+      const { price, amount, variant } = this.state;
+      const { products } = this.props;
+      const product = products[0];
+      // console.log(typeof product, product);
+      const id = product.id;
+      const title = product.title;
+
+      const additionalComment = '';
+      const contactData = {};
+
+      let error = null;
+
+      if (amount === 0) {
+        console.log(amount);
+        error = 'Musisz wybrać chociaż jeden produkt';
+      }
+
+      if (error === null) {
+        let formData = {
+          id: id,
+          title: title,
+          price: price,
+          amount: amount,
+          priceDescription: variant,
+          additionalComment: additionalComment,
+          contactData: contactData,
+        };
+
+        console.log(formData);
+
+        // this.props.addPost(formData);
+        // this.props.fetchPublishedPosts();
+        this.setState({ error: null });
+        console.log('udało się', formData);
+      } else {
+        this.setState({ error });
+
+        console.log('nie udało się', error);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const {
       // id,
       className,
-      children,
+      // children,
       // products,
-      id,
+      // id,
       title,
-      description,
+      // description,
       longDescription,
       photo1,
       photo2,
@@ -59,26 +115,38 @@ class Component extends React.Component {
                         key={priceVariant.price}
                         className={clsx(className, styles.priceVariant)}
                       >
-                        <p className={clsx(className, styles.priceDetail)}>
+                        <label
+                          className={clsx(className, styles.priceDetail)}
+                          forhtml={`amount${priceVariant.price}`}
+                        >
                           {priceVariant.variant}
-                        </p>
+                        </label>
                         <input
                           className={clsx(className, styles.amount)}
-                          // onChange={}
-                          // value="1"
                           step="1"
                           min="1"
                           max="9"
                           type="number"
                           id={`amount${priceVariant.price}`}
                           name={`amount${priceVariant.price}`}
+                          value={this.state.products.amount}
+                          onChange={e => {
+                            this.setState({
+                              ...this.state,
+                              variant: priceVariant.variant,
+                              price: priceVariant.price,
+                              amount: e.target.value,
+                            });
+                          }}
                         />
 
                         <Button
                           className={clsx(className, styles.button)}
                           icon={faCartPlus}
+                          type="submit"
                           name=""
                           to=""
+                          onClick={this.submitCartProduct}
                         />
                       </li>
                     ))}

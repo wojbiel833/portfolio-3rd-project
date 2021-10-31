@@ -24,7 +24,7 @@ const Component = ({ className }) => (
       alt="pexels-alexy-almond-3758056-1"
       border="0"
     />
-    <StyledButton />
+    <StyledButton href="/products" />
   </div>
 );
 
