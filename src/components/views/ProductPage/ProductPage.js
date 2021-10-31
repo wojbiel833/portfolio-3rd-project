@@ -9,6 +9,7 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { connect } from 'react-redux';
 import { getProducts } from '../../../redux/productsRedux';
+import { addProductToCartRequest } from '../../../redux/cartRedux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './ProductPage.module.scss';
@@ -58,10 +59,9 @@ class Component extends React.Component {
 
         console.log(formData);
 
-        // this.props.addPost(formData);
-        // this.props.fetchPublishedPosts();
         this.setState({ error: null });
         console.log('udało się', formData);
+        this.props.addProduct(formData);
       } else {
         this.setState({ error });
 
@@ -179,29 +179,32 @@ Component.propTypes = {
   photo2: PropTypes.string,
   photo3: PropTypes.string,
   price: PropTypes.object,
+  addProduct: PropTypes.func,
 };
 
 const mapStateToProps = (state, props) => {
-  let postParams = {};
+  let productParams = {};
   let id;
-
-  if (props.match) {
+  console.log(state);
+  console.log(props.match.params.id);
+  if (props.match.params.id) {
     id = props.match.params.id;
     const filteredProducts = state.products.data.filter(
       product => product.id === id
     );
-    postParams = filteredProducts[0] || {};
+    console.log(filteredProducts);
+    productParams = filteredProducts[0] || {};
   }
 
   return {
-    ...postParams,
+    ...productParams,
     // products: state.products.data,
     products: getProducts(state, id),
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  // someAction: arg => dispatch(reduxActionCreator(arg)),
+  addProduct: data => dispatch(addProductToCartRequest(data)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

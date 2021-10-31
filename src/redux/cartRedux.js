@@ -13,10 +13,22 @@ const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
 
+const START_REQUEST = createActionName('START_REQUEST');
+const END_REQUEST = createActionName('END_REQUEST');
+const ERROR_REQUEST = createActionName('ERROR_REQUEST');
+
+export const ADD_POST = createActionName('ADD_POST');
+
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
+
+export const startRequest = payload => ({ payload, type: START_REQUEST });
+export const endRequest = payload => ({ payload, type: END_REQUEST });
+export const errorRequest = payload => ({ payload, type: ERROR_REQUEST });
+
+export const addPost = payload => ({ payload, type: ADD_POST });
 
 /* thunk creators */
 export const fetchCartProducts = () => {
@@ -36,6 +48,22 @@ export const fetchCartProducts = () => {
         .catch(err => {
           dispatch(fetchError(err.message || true));
         });
+    }
+  };
+};
+
+export const addProductToCartRequest = data => {
+  return async dispatch => {
+    dispatch(startRequest({ name: ADD_POST }));
+    console.log(data);
+    console.log('ADD POST REQUEEST');
+    try {
+      let res = await Axios.post('http://localhost:8000/api/cart', data);
+      console.log(res);
+      dispatch(addPost(res.data.cartProduct));
+      // dispatch(endRequest({ name: ADD_POST }));
+    } catch (e) {
+      dispatch(errorRequest({ name: ADD_POST, error: e.message }));
     }
   };
 };
@@ -70,6 +98,31 @@ export const reducer = (statePart = [], action = {}) => {
           error: action.payload,
         },
       };
+    }
+    case END_REQUEST: {
+      return {
+        ...statePart,
+        requests: {
+          ...statePart.requests,
+          [action.payload.name]: { pending: false, error: null, success: true },
+        },
+      };
+    }
+    case ERROR_REQUEST: {
+      return {
+        ...statePart,
+        requests: {
+          ...statePart.requests,
+          [action.payload.name]: {
+            pending: false,
+            error: action.payload.message,
+            success: false,
+          },
+        },
+      };
+    }
+    case ADD_POST: {
+      return { ...statePart, data: [...statePart.data, action.payload] };
     }
     default:
       return statePart;
