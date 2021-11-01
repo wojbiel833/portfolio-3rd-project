@@ -90,7 +90,8 @@ const StyledFormGroup = styled(FormGroup)(({ theme }) => ({
 
 // COMPONENT-------------------------------------------------
 function Component(props) {
-  const { isLogged, isAdmin, logIn, logOut, logInAdmin, logOutAdmin } = props;
+  const { isLogged, isAdmin, logIn, logOut, logInAdmin, logOutAdmin, cart } =
+    props;
 
   // COMPONENT SETTINGS --------------------------------------
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -156,8 +157,13 @@ function Component(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+        <IconButton
+          size="large"
+          aria-label="show 4 new mails"
+          color="inherit"
+          href="/cart"
+        >
+          <Badge badgeContent={cart.length} color="error">
             <ShoppingBasketIcon />
           </Badge>
         </IconButton>
@@ -249,9 +255,17 @@ function Component(props) {
                 color="inherit"
               >
                 <Badge>
-                  <p style={{ fontSize: '18px', marginBottom: 0 }}>
+                  <a
+                    style={{
+                      fontSize: '18px',
+                      marginBottom: 0,
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
+                    href="/"
+                  >
                     Strona główna
-                  </p>
+                  </a>
                   {/* <ViewArrayIcon /> */}
                 </Badge>
               </IconButton>
@@ -259,8 +273,9 @@ function Component(props) {
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
+                href="/cart"
               >
-                <Badge badgeContent={4} color="error">
+                <Badge badgeContent={cart.length} color="error">
                   <ShoppingBasketIcon />
                 </Badge>
               </IconButton>
@@ -308,12 +323,14 @@ Component.propTypes = {
   isAdmin: PropTypes.bool,
   logInAdmin: PropTypes.func,
   logOutAdmin: PropTypes.func,
+  cart: PropTypes.array,
   // isUser: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   isLogged: state.login.loggedIn,
   isAdmin: state.login.admin,
+  cart: state.cart.data,
 });
 
 const mapDispatchToProps = dispatch => ({

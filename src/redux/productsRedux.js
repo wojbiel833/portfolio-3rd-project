@@ -24,12 +24,13 @@ export const fetchProducts = () => {
     dispatch(fetchStarted());
 
     const state = getState();
-    // console.log(state);
+    console.log('przed AXIOS', state);
 
     if (state.products.data && state.products.loading.active) {
       Axios.get('http://localhost:8000/api/products')
         .then(res => {
           console.log('products res', res);
+          console.log('po AXIOS', state);
 
           dispatch(fetchSuccess(res.data));
         })

@@ -34,7 +34,7 @@ mongoose.connect('mongodb://localhost:27017/yogaSchool', {
   useUnifiedTopology: true,
 });
 const db = mongoose.connection;
-console.log(db);
+// console.log(db);
 
 db.once('open', () => {
   console.log('Successfully connected to the database');

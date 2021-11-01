@@ -8,7 +8,7 @@ import { Button } from '../../common/Button/Button';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { connect } from 'react-redux';
-import { getProducts } from '../../../redux/productsRedux';
+import { getProducts, fetchProducts } from '../../../redux/productsRedux';
 import { addProductToCartRequest } from '../../../redux/cartRedux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
@@ -23,6 +23,11 @@ class Component extends React.Component {
     products: {},
     error: null,
   };
+
+  componentDidMount() {
+    const { fetchAllProducts } = this.props;
+    fetchAllProducts();
+  }
 
   submitCartProduct = e => {
     e.preventDefault();
@@ -42,7 +47,7 @@ class Component extends React.Component {
       let error = null;
 
       if (amount === 0) {
-        console.log(amount);
+        // console.log(amount);
         error = 'Musisz wybrać chociaż jeden produkt';
       }
 
@@ -57,7 +62,7 @@ class Component extends React.Component {
           contactData: contactData,
         };
 
-        console.log(formData);
+        // console.log(formData);
 
         this.setState({ error: null });
         console.log('udało się', formData);
@@ -180,19 +185,21 @@ Component.propTypes = {
   photo3: PropTypes.string,
   price: PropTypes.object,
   addProduct: PropTypes.func,
+  fetchAllProducts: PropTypes.func,
 };
 
 const mapStateToProps = (state, props) => {
   let productParams = {};
   let id;
-  console.log(state);
-  console.log(props.match.params.id);
+  // console.log(state);
+  // console.log(props.match.params.id);
   if (props.match.params.id) {
     id = props.match.params.id;
+
     const filteredProducts = state.products.data.filter(
       product => product.id === id
     );
-    console.log(filteredProducts);
+    // console.log(filteredProducts);
     productParams = filteredProducts[0] || {};
   }
 
@@ -205,6 +212,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = dispatch => ({
   addProduct: data => dispatch(addProductToCartRequest(data)),
+  fetchAllProducts: () => dispatch(fetchProducts()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
