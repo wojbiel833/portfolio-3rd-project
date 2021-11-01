@@ -27,6 +27,7 @@ class Component extends React.Component {
     _id: '',
     priceDescription: '',
     price: 0,
+    totalPrice: 0,
     amount: 0,
     products: {},
     error: null,
@@ -76,6 +77,7 @@ class Component extends React.Component {
         // console.log(formData);
 
         this.setState({ error: null });
+        this.forceUpdate();
         // console.log('udało się', formData);
         this.props.updateProduct(formData);
       } else {
@@ -100,49 +102,13 @@ class Component extends React.Component {
     const { cart } = this.props;
     // console.log(cart);
     const filteredCart = cart.filter(el => el.id === productId);
-    // console.log(filteredCart);
+    // console.(filteredCart);
     const cartProduct = filteredCart[0];
     console.log(cartProduct);
-    // this.setState({
-    //   ...this.state,
-    //   id: cart.id,
-    // });
+
     try {
-      // const {
-      //   id,
-      //   // _id,
-      //   // price,
-      //   // priceDescription,
-      //   // amount,
-      //   // additionalComment,
-      //   // title,
-      // } = this.state;
-      // console.log(id);
-      // const contactData = {};
-      // let error = null;
-      // if (amount === 0) {
-      //   // console.log(amount);
-      //   error = 'Musisz wybrać chociaż jeden produkt';
-      // }
-      // if (error === null) {
-      //   let formData = {
-      //     id: id,
-      //     _id: _id,
-      //     title: title,
-      //     price: price,
-      //     amount: amount,
-      //     priceDescription: priceDescription,
-      //     additionalComment: additionalComment,
-      //     contactData: contactData,
-      //   };
-      // console.log(formData);
-      //   this.setState({ error: null });
-      //   console.log('udało się', formData);
       this.props.deleteProduct(cartProduct);
-      // } else {
-      //   this.setState({ error });
-      //   console.log('nie udało się', error);
-      // }
+      this.forceUpdate();
     } catch (err) {
       console.log(err);
     }
@@ -160,6 +126,8 @@ class Component extends React.Component {
         prices.push(p.price);
         amounts.push(p.amount);
       });
+      // console.log(prices);
+      // console.log(amounts);
 
       let productPrice = 0;
       let totalPrice = 0;
@@ -168,6 +136,7 @@ class Component extends React.Component {
 
         totalPrice += productPrice;
       }
+      // this.setState({ totalPrice: totalPrice });
       // console.log(totalPrice);
       return totalPrice;
     };
@@ -176,86 +145,93 @@ class Component extends React.Component {
       <div className={clsx(className, styles.root)}>
         <h2 className={clsx(className, styles.title)}>Twój koszyk</h2>
         <div className={clsx(className, styles.cart)}>
-          {cart.map(product => {
-            console.log(product);
-            return (
-              <div
-                className={clsx(className, styles.product)}
-                key={product.id}
-                id={product.id}
-              >
-                <span className={clsx(className, styles.info)}>
-                  <p className={clsx(className, styles.productName)}>
-                    {product.title} - {product.priceDescription}
-                  </p>
-                  <p className={clsx(className, styles.price)}>
-                    {product.price} zł
-                  </p>
-                </span>
-                <span className={clsx(className, styles.edit)}>
-                  <input
-                    className={clsx(className, styles.amount)}
-                    // onChange={}
-                    placeholder={product.amount}
-                    step="1"
-                    min="1"
-                    max="9"
-                    type="number"
-                    // id={`amount${priceVariant.price}`}
-                    // name={`amount${priceVariant.price}`}
-                    value={'' ? product.amount : this.state.products.amount}
-                    // value={ this.state.products.amount}
-                    onChange={e => {
-                      this.setState({
-                        ...this.state,
-                        amount: e.target.value,
-                        id: product.id,
-                        _id: product._id,
-                        title: product.title,
-                        price: product.price,
-                        priceDescription: product.priceDescription,
-                      });
-                    }}
-                  />
-                  <input
-                    className={clsx(className, styles.comment)}
-                    placeholder={product.additionalComment}
-                    // onChange={}
-                    // value={
-                    //   ''
-                    //     ? product.additionalComment
-                    //     : this.state.additionalComment
-                    // }
-                    type="text"
-                    onChange={e => {
-                      this.setState({
-                        ...this.state,
-                        additionalComment: e.target.value,
-                      });
-                    }}
-                    id={`additionalComment${product.price}`}
-                    name={`additionalComment${product.price}`}
-                    // name={`amount${priceVariant.price}`}
-                  />
-                  <Button
-                    className={clsx(className, styles.button)}
-                    icon={faSave}
-                    // name="zapisz"
-                    // onChange={this.setState({ ...this.state, id: product.id })}
-                    onClick={this.updateCartProduct}
-                    to=""
-                  />
-                  <Button
-                    className={clsx(className, styles.button)}
-                    icon={faTrashAlt}
-                    // name="usuń"
-                    onClick={this.deleteCartProduct}
-                    to=""
-                  />
-                </span>
-              </div>
-            );
-          })}
+          {cart[0] ? (
+            cart.map(product => {
+              console.log(product);
+              return (
+                <div
+                  className={clsx(className, styles.product)}
+                  key={product.id}
+                  id={product.id}
+                >
+                  <span className={clsx(className, styles.info)}>
+                    <p className={clsx(className, styles.productName)}>
+                      {product.title} - {product.priceDescription}
+                    </p>
+                    <p className={clsx(className, styles.price)}>
+                      {product.price} zł
+                    </p>
+                  </span>
+                  <span className={clsx(className, styles.edit)}>
+                    <input
+                      className={clsx(className, styles.amount)}
+                      // onChange={}
+                      placeholder={product.amount}
+                      step="1"
+                      min="1"
+                      max="9"
+                      type="number"
+                      // id={`amount${priceVariant.price}`}
+                      // name={`amount${priceVariant.price}`}
+                      value={'' ? product.amount : this.state.products.amount}
+                      // value={ this.state.products.amount}
+                      onChange={e => {
+                        this.setState({
+                          ...this.state,
+                          amount: e.target.value,
+                          id: product.id,
+                          _id: product._id,
+                          title: product.title,
+                          price: product.price,
+                          priceDescription: product.priceDescription,
+                        });
+                      }}
+                    />
+                    <input
+                      className={clsx(className, styles.comment)}
+                      placeholder={product.additionalComment}
+                      // onChange={}
+                      // value={
+                      //   ''
+                      //     ? product.additionalComment
+                      //     : this.state.additionalComment
+                      // }
+                      type="text"
+                      onChange={e => {
+                        this.setState({
+                          ...this.state,
+                          additionalComment: e.target.value,
+                        });
+                      }}
+                      id={`additionalComment${product.price}`}
+                      name={`additionalComment${product.price}`}
+                    />
+                    <Button
+                      className={clsx(className, styles.button)}
+                      icon={faSave}
+                      onClick={this.updateCartProduct}
+                      to=""
+                    />
+                    <Button
+                      className={clsx(className, styles.button)}
+                      icon={faTrashAlt}
+                      onClick={this.deleteCartProduct}
+                      to=""
+                    />
+                  </span>
+                </div>
+              );
+            })
+          ) : (
+            <div className={clsx(className, styles.product)}>
+              {/* <span className={clsx(className, styles.info)}> */}
+              <p className={clsx(className, styles.emptyCart)}>
+                Twój koszyk jest pusty
+              </p>
+              {/* </span> */}
+            </div>
+          )}
+
           <div className={clsx(className, styles.summary)}>
             <p className={clsx(className, styles.summaryName)}>
               Cena całkowita:

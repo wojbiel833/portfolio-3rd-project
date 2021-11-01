@@ -125,7 +125,7 @@ router.delete('/cart', async (req, res) => {
     // console.log('req.body', req.body);
     // const id = req.body._id;
     // console.log(id);
-    const deletedProduct = CartProducts.deleteOne({ _id: _id });
+    const deletedProduct = await CartProducts.deleteOne({ _id: _id });
     // console.log('deletedProduct:', deletedProduct);
     // if (deletedProduct) {
     // CartdeletedProducts.splice(deletedProduct, 1);
