@@ -14,10 +14,10 @@ const Component = ({
   className,
   children,
   products,
-  title,
-  description,
-  photo,
-  price,
+  // title,
+  // description,
+  // photo,
+  // price,
 }) => {
   return (
     <div className={clsx(className, styles.root)}>
@@ -100,10 +100,10 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   products: PropTypes.array,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  photo: PropTypes.string,
-  price: PropTypes.string,
+  // title: PropTypes.string,
+  // description: PropTypes.string,
+  // photo: PropTypes.string,
+  // price: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
