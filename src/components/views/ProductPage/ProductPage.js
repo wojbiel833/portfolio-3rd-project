@@ -42,7 +42,7 @@ class Component extends React.Component {
       const title = product.title;
 
       const additionalComment = '';
-      const contactData = {};
+      // const contactData = {};
 
       let error = null;
 
@@ -59,7 +59,16 @@ class Component extends React.Component {
           amount: amount,
           priceDescription: variant,
           additionalComment: additionalComment,
-          contactData: contactData,
+          contactData: {
+            name: '',
+            email: '',
+            phone: '',
+            city: '',
+            street: '',
+            house: '',
+            flat: '',
+            content: '',
+          },
         };
 
         // console.log(formData);

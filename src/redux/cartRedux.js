@@ -57,7 +57,7 @@ export const addProductToCartRequest = data => {
     dispatch(startRequest({ name: ADD_POST }));
     const state = getState();
     // console.log('state przed axios', state);
-    // console.log('data', data);
+    console.log('data', data);
     // console.log('ADD POST REQUEEST');
     try {
       let res = await Axios.post('http://localhost:8000/api/cart', data);

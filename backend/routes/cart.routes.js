@@ -4,6 +4,7 @@ const router = express.Router();
 const shortid = require('shortid');
 
 const CartProducts = require('../models/cart.model');
+const Order = require('../models/order.model');
 
 router.get('/cart', async (req, res) => {
   try {
@@ -19,7 +20,7 @@ router.get('/cart', async (req, res) => {
 });
 
 router.post('/cart', async (req, res) => {
-  // console.log('REQ', req.body);
+  console.log('REQ', req.body);
   // console.log('RES', res);
   // console.log(res);
   try {
@@ -92,6 +93,8 @@ router.put('/cart', async (req, res) => {
       error = 'Musisz wybrać chociaż jeden produkt';
     }
 
+    console.log('cartProduct', cartProduct.contactData);
+
     if (!error) {
       if (cartProduct) {
         await CartProducts.updateOne(
@@ -104,12 +107,77 @@ router.put('/cart', async (req, res) => {
               amount: amount,
               priceDescription: priceDescription,
               additionalComment: additionalComment,
+              contactData: contactData,
             },
           }
         );
         console.log(`Post ${cartProduct} has been changed!`);
         res.json(cartProduct);
       } else res.status(404).json({ message: 'Not found...' });
+    } else res.status(404).json({ message: error });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err });
+  }
+});
+
+router.post('/cart/orders', async (req, res) => {
+  try {
+    const orderID = shortid.generate();
+
+    const {
+      orderedProducts,
+      name,
+      email,
+      phone,
+      city,
+      street,
+      house,
+      flat,
+      content,
+    } = req.body;
+    console.log('/cart/orders -  req.body', req.body);
+    // console.log(
+    //   '/cart/orders - contactData',
+    //   name,
+    //   email,
+    //   phone,
+    //   city,
+    //   street,
+    //   house,
+    //   flat,
+    //   content
+    // );
+
+    // console.log(cartProduct);
+
+    let error = null;
+
+    // if (amount === 0) {
+    //   // console.log(amount);
+    //   error = 'Musisz wybrać chociaż jeden produkt';
+    // }
+
+    // console.log('cartProduct', cartProduct.contactData);
+
+    if (!error) {
+      const newOrder = new Order({
+        orderID: orderID,
+        orderedProducts: orderedProducts,
+        contactData: {
+          name: name,
+          email: email,
+          phone: phone,
+          city: city,
+          street: street,
+          house: house,
+          flat: flat,
+          content: content,
+        },
+      });
+
+      await newOrder.save();
+      res.json({ message: 'OK', order: newOrder });
     } else res.status(404).json({ message: error });
   } catch (err) {
     console.log(err);

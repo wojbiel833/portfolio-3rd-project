@@ -100,6 +100,19 @@ function Component(props) {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const displayCartQuanity = cart => {
+    const products = [];
+
+    cart.filter(product => products.push(product.amount));
+
+    let quanity = 0;
+    for (let i = 0; i <= products.length - 1; i++) {
+      quanity += products[i];
+    }
+
+    return quanity;
+  };
+
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -163,7 +176,7 @@ function Component(props) {
           color="inherit"
           href="/cart"
         >
-          <Badge badgeContent={cart.length} color="error">
+          <Badge badgeContent={displayCartQuanity(cart)} color="error">
             <ShoppingBasketIcon />
           </Badge>
         </IconButton>
@@ -275,7 +288,7 @@ function Component(props) {
                 color="inherit"
                 href="/cart"
               >
-                <Badge badgeContent={cart.length} color="error">
+                <Badge badgeContent={displayCartQuanity(cart)} color="error">
                   <ShoppingBasketIcon />
                 </Badge>
               </IconButton>

@@ -53,7 +53,16 @@ class Component extends React.Component {
       } = this.state;
       const { cart } = this.props;
       console.log(id);
-      const contactData = {};
+      const contactData = {
+        name: '',
+        email: '',
+        phone: '',
+        city: '',
+        street: '',
+        house: '',
+        flat: '',
+        content: '',
+      };
 
       let error = null;
 
@@ -243,7 +252,7 @@ class Component extends React.Component {
         </div>
 
         {/* {children} */}
-        <Form />
+        <Form cart={cart} />
       </div>
     );
   }
