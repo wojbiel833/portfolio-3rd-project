@@ -53,8 +53,30 @@
   .asterisk {
     color: red;
     text-align: center;
-    // margin: auto 10px;
-    // display: inline;
-    // align-items: flex-end;
+  }
+}
+
+@media (max-width: 770px) {
+  .root {
+    .title {
+      font-size: 30px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .root {
+    .content {
+      .inputs {
+        .group {
+          display: flex;
+          flex-flow: column wrap;
+        }
+      }
+
+      .big {
+        width: 100%;
+      }
+    }
   }
 }

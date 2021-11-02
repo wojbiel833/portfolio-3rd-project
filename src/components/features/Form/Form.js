@@ -44,6 +44,10 @@ class Component extends React.Component {
     console.log(name, email, phone, city, street, house, flat, content);
     let error = null;
 
+    if (!name || !email || !city || !street || !house || !flat)
+      error = 'Musisz wypełnić wymagane pola oznaczone gwiazdką';
+    if (!email.includes('@')) error = 'Zły format adresu e-mail';
+
     if (error === null) {
       const orderInfo = {
         orderedProducts: cartProducts,

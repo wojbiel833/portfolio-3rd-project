@@ -164,9 +164,14 @@ class Component extends React.Component {
                   id={product.id}
                 >
                   <span className={clsx(className, styles.info)}>
-                    <p className={clsx(className, styles.productName)}>
-                      {product.title} - {product.priceDescription}
-                    </p>
+                    <span className={clsx(className, styles.productName)}>
+                      <p className={clsx(className, styles.name)}>
+                        &quot;{product.title}&quot;
+                      </p>
+                      <p className={clsx(className, styles.description)}>
+                        {product.priceDescription}
+                      </p>
+                    </span>
                     <p className={clsx(className, styles.price)}>
                       {product.price} zł
                     </p>

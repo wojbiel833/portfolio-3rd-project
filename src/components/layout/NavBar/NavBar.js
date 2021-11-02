@@ -180,19 +180,7 @@ function Component(props) {
             <ShoppingBasketIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <ViewArrayIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+        <p>Cart</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -249,7 +237,7 @@ function Component(props) {
               component="div"
               sx={{ display: { xs: 'none', sm: 'block' } }}
             >
-              "Jognięci" - Twoja szkoła jogi
+              &quot;Jognięci&quot; - Twoja szkoła jogi
             </Typography>
             <Search>
               <SearchIconWrapper>
