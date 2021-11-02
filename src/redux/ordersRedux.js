@@ -47,6 +47,8 @@ export const sendFormData = data => {
 
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {
+  console.log(statePart);
+  console.log(action);
   switch (action.type) {
     case END_REQUEST: {
       return {
