@@ -45,7 +45,6 @@ router.post('/cart', async (req, res) => {
     let error = null;
 
     if (amount === 0) {
-      // console.log(amount);
       error = 'Musisz wybrać chociaż jeden produkt';
     }
 

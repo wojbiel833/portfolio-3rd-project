@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "serv:prod": "set NODE_ENV=production&&nodemon backend/server.js",
+    "serv:dev": "set NODE_ENV=dev&&nodemon backend/server.js",
     "start": "run-p start:* ",
     "start-silent": "run-p start > /dev/null",
     "start:react": "react-scripts start",

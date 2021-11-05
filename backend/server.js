@@ -9,6 +9,9 @@ const ordersRoutes = require('./routes/orders.routes');
 
 const app = express();
 
+// connection with .env
+require('dotenv').config();
+
 /* MIDDLEWARE */
 app.use(cors());
 app.use(express.json());
@@ -31,15 +34,35 @@ app.use('*', (req, res) => {
 });
 
 /* MONGOOSE */
-mongoose.connect('mongodb://localhost:27017/yogaSchool', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const NODE_ENV = process.env.NODE_ENV;
+
+let dbURL = '';
+
+if (NODE_ENV === 'production') {
+  dbURL = `mongodb+srv://wojbiel833:${process.env.PASS_KEY}@wojbiel833.p51y7.mongodb.net/yogaSchool?retryWrites=true&w=majority`;
+  console.log('Connected to remote DataBase');
+} else if (NODE_ENV === 'test') {
+  dbURL = 'mongodb://localhost:27017/yogaSchooltest';
+  console.log('Connected to test DataBase');
+} else if (NODE_ENV === 'dev') {
+  dbURL = 'mongodb://localhost:27017/yogaSchool';
+  console.log('Connected to local DataBase');
+} else {
+  dbURL = 'mongodb://localhost:27017/yogaSchool';
+  console.log('Connected to local DataBase by default');
+}
+
+mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const db = mongoose.connection;
 // console.log(db);
 
 db.once('open', () => {
-  console.log('Successfully connected to the database');
+  console.log(
+    `Successfully connected to ${
+      NODE_ENV !== 'production' ? 'local' : 'remote'
+    } database`
+  );
 });
 db.on('error', err => console.log('Error: ' + err));
 

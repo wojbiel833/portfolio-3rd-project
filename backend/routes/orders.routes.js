@@ -49,13 +49,9 @@ router.post('/orders', async (req, res) => {
     // console.log(cartProduct);
 
     let error = null;
-
-    // if (amount === 0) {
-    //   // console.log(amount);
-    //   error = 'Musisz wybrać chociaż jeden produkt';
-    // }
-
-    // console.log('cartProduct', cartProduct.contactData);
+    if (!name || !email || !city || !street || !house || !flat)
+      error = 'Musisz wypełnić wymagane pola oznaczone gwiazdką';
+    if (!email.includes('@')) error = 'Zły format adresu e-mail';
 
     if (!error) {
       const newOrder = new Order({
