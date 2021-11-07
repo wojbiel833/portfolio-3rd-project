@@ -8,9 +8,12 @@ const CartProducts = require('../models/cart.model');
 router.get('/cart', async (req, res) => {
   try {
     const result = await CartProducts.find();
-    // .select('author created title photo')
-    // .sort({created: -1});
-    // console.log('result', result);
+    /* ZAPISYWANIE SESJI */
+    req.session.login = 'User123';
+    req.session.cart = {
+      result,
+    };
+
     if (!result) res.status(404).json({ cart: 'Not found' });
     else res.json(result);
   } catch (err) {
@@ -19,9 +22,6 @@ router.get('/cart', async (req, res) => {
 });
 
 router.post('/cart', async (req, res) => {
-  console.log('REQ', req.body);
-  // console.log('RES', res);
-  // console.log(res);
   try {
     const id = shortid.generate();
     const {
@@ -32,15 +32,6 @@ router.post('/cart', async (req, res) => {
       additionalComment,
       contactData,
     } = req.body;
-
-    // console.log(
-    //   title,
-    //   price,
-    //   priceDescription,
-    //   amount,
-    //   additionalComment,
-    //   contactData
-    // );
 
     let error = null;
 
@@ -87,7 +78,6 @@ router.put('/cart', async (req, res) => {
     let error = null;
 
     if (amount === 0) {
-      // console.log(amount);
       error = 'Musisz wybrać chociaż jeden produkt';
     }
 
@@ -121,21 +111,11 @@ router.put('/cart', async (req, res) => {
 
 router.delete('/cart', async (req, res) => {
   try {
-    console.log(req.body);
     const _id = req.body._id;
-    console.log(_id);
-    // console.log('req.body', req.body);
-    // const id = req.body._id;
-    // console.log(id);
     const deletedProduct = await CartProducts.deleteOne({ _id: _id });
-    // console.log('deletedProduct:', deletedProduct);
-    // if (deletedProduct) {
-    // CartdeletedProducts.splice(deletedProduct, 1);
-    // res.json({ message: 'OK' });
-    // }
+
     res.json({ message: `${deletedProduct} deleted!` });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: err });
   }
 });

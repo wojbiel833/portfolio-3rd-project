@@ -1,6 +1,5 @@
 import Axios from 'axios';
 /* selectors */
-// export const getAll = ({ posts }) => posts.data;
 export const getCartProduct = ({ cart }, productId) =>
   cart.data.filter(product => product.id === productId);
 
@@ -36,13 +35,10 @@ export const fetchCartProducts = () => {
     dispatch(fetchStarted());
 
     const state = getState();
-    console.log(state);
 
     if (state.cart.data && state.cart.loading.active) {
       Axios.get('http://localhost:8000/api/cart')
         .then(res => {
-          console.log('cart res', res);
-
           dispatch(fetchSuccess(res.data));
         })
         .catch(err => {
@@ -55,15 +51,10 @@ export const fetchCartProducts = () => {
 export const addProductToCartRequest = data => {
   return async (dispatch, getState) => {
     dispatch(startRequest({ name: ADD_POST }));
-    const state = getState();
-    // console.log('state przed axios', state);
-    console.log('data', data);
-    // console.log('ADD POST REQUEEST');
+
     try {
       let res = await Axios.post('http://localhost:8000/api/cart', data);
-      // console.log('res', res);
-      // console.log('state po axios', state);
-      console.log('gotowe do wysylki:', res.data.cartProduct);
+
       dispatch(addPost(res.data.cartProduct));
       dispatch(endRequest({ name: ADD_POST }));
     } catch (e) {
@@ -75,19 +66,12 @@ export const addProductToCartRequest = data => {
 export const updateProductInCart = data => {
   return async (dispatch, getState) => {
     dispatch(startRequest({ name: ADD_POST }));
-    const state = getState();
-    console.log('state przed axios', state);
-    console.log('data', data);
-    console.log('PUT REQUEEST');
+
     try {
       let res = await Axios.put('http://localhost:8000/api/cart', data);
-      console.log('res', res);
-      console.log('state po axios', state);
-      console.log('gotowe do wysylki:', res.data);
-      // dispatch(addPost(res.data.cartProduct));
+
       dispatch(endRequest({ name: ADD_POST }));
     } catch (e) {
-      console.log(e);
       dispatch(errorRequest({ name: ADD_POST, error: e.message }));
     }
   };
@@ -96,22 +80,17 @@ export const updateProductInCart = data => {
 export const deleteProductFromCart = data => {
   return async (dispatch, getState) => {
     dispatch(startRequest({ name: ADD_POST }));
-    const state = getState();
-    console.log('state przed axios', state);
-    console.log('data', data);
-    console.log('DELETE REQUEEST');
+
     try {
       let res = await Axios({
         url: 'http://localhost:8000/api/cart',
         method: 'delete',
         data: { _id: data._id },
       });
-      // console.log('state po axios', state);
-      // console.log('gotowe do wysylki:', res.data);
-      // dispatch(addPost(res));
+
+      fetchCartProducts()(dispatch, getState);
       dispatch(endRequest({ name: ADD_POST }));
     } catch (e) {
-      console.log(e);
       dispatch(errorRequest({ name: ADD_POST, error: e.message }));
     }
   };

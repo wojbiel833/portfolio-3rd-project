@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { Product } from '../../common/Product/Product';
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Products.module.scss';
 
@@ -26,18 +24,4 @@ Component.propTypes = {
   className: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
-
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-
-export {
-  Component as Products,
-  // Container as Products,
-  Component as ProductsComponent,
-};
+export { Component as Products, Component as ProductsComponent };

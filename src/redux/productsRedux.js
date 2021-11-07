@@ -1,6 +1,5 @@
 import Axios from 'axios';
 /* selectors */
-// export const getAll = ({ posts }) => posts.data;
 export const getProducts = ({ products }, productId) =>
   products.data.filter(product => product.id === productId);
 
@@ -24,14 +23,10 @@ export const fetchProducts = () => {
     dispatch(fetchStarted());
 
     const state = getState();
-    console.log('przed AXIOS', state);
 
     if (state.products.data && state.products.loading.active) {
       Axios.get('http://localhost:8000/api/products')
         .then(res => {
-          console.log('products res', res);
-          console.log('po AXIOS', state);
-
           dispatch(fetchSuccess(res.data));
         })
         .catch(err => {

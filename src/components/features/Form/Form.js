@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import clsx from 'clsx';
 
 import { Button } from '../../common/Button/Button';
 
 import { connect } from 'react-redux';
 import { sendFormData } from '../../../redux/ordersRedux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-
 import TextField from '@mui/material/TextField';
-
 import styles from './Form.module.scss';
 
 class Component extends React.Component {
@@ -34,14 +31,11 @@ class Component extends React.Component {
   };
 
   submitForm = e => {
-    console.log('submitForm');
     e.preventDefault();
 
     const cartProducts = this.props.cart;
-    console.log(cartProducts);
     const { name, email, phone, city, street, house, flat, content } =
       this.state;
-    console.log(name, email, phone, city, street, house, flat, content);
     let error = null;
 
     if (!name || !email || !city || !street || !house || !flat)
@@ -61,22 +55,14 @@ class Component extends React.Component {
         content: content,
       };
       this.props.sendForm(orderInfo);
-      // this.setState({ error: null });
-      console.log('udało się', orderInfo);
     } else {
       this.setState({ error });
-
-      console.log('nie udało się');
     }
   };
   render() {
-    const { className, children, sendForm, cart } = this.props;
+    const { className } = this.props;
     return (
-      <form
-        className={clsx(className, styles.root)}
-        id="formElem"
-        // onSubmit={submitForm}
-      >
+      <form className={clsx(className, styles.root)} id="formElem">
         <div className={clsx(className, styles.content)}>
           <div className={clsx(className, styles.head)}>
             <h2 className={clsx(className, styles.title)}>Dane do wysyłki</h2>
@@ -94,12 +80,9 @@ class Component extends React.Component {
               <TextField
                 className={clsx(className, styles.input, styles.big)}
                 color="secondary"
-                // id="filled-error-helper-text"
                 label="Imię i nazwisko*"
                 placeholder="Imię i nazwisko"
                 variant="filled"
-                // fullWidth={true}
-                // minLength={10}
                 name="name"
                 type="name"
                 value={this.state.name}
@@ -108,7 +91,6 @@ class Component extends React.Component {
               <TextField
                 className={clsx(className, styles.input, styles.big)}
                 color="secondary"
-                // id="outlined-multiline-static"
                 label="E-mail*"
                 rows={1}
                 placeholder="example@gmail.com"
@@ -137,7 +119,6 @@ class Component extends React.Component {
               <TextField
                 className={clsx(className, styles.input, styles.big)}
                 color="secondary"
-                // id="outlined-multiline-static"
                 label="Miejscowość*"
                 rows={1}
                 placeholder="Warszawa"
@@ -150,7 +131,6 @@ class Component extends React.Component {
               <TextField
                 className={clsx(className, styles.input, styles.big)}
                 color="secondary"
-                // id="outlined-multiline-static"
                 label="Ulica*"
                 rows={1}
                 placeholder="Piękna"
@@ -164,7 +144,6 @@ class Component extends React.Component {
                 <TextField
                   className={clsx(className, styles.input, styles.small)}
                   color="secondary"
-                  // id="outlined-multiline-static"
                   label="Nr. domu*"
                   rows={1}
                   placeholder="69"
@@ -177,7 +156,6 @@ class Component extends React.Component {
                 <TextField
                   className={clsx(className, styles.input, styles.small)}
                   color="secondary"
-                  // id="outlined-multiline-static"
                   label="Nr. mieszkania*"
                   rows={1}
                   placeholder="Piękna"
@@ -192,14 +170,12 @@ class Component extends React.Component {
             <TextField
               className={clsx(className, styles.input)}
               color="secondary"
-              // id="outlined-multiline-static"
               label="Dodatkowe informacje dla sprzedającego"
               variant="filled"
               multiline
               rows={2}
               placeholder="Proszę o..."
               fullWidth={true}
-              // minLength={20}
               name="content"
               type="content"
               value={this.state.content}
@@ -207,25 +183,6 @@ class Component extends React.Component {
             />
           </div>
         </div>
-        {/* <div className={clsx(className, styles.contact)}></div> */}
-        {/* <div className={clsx(className, styles.dates)}>
-        <div>
-          <h4>Data publikacji:</h4>
-          <p>{formatDate(new Date())}</p>
-        </div>
-        <div>
-          <h4>Status ogłoszenia:</h4>
-          <p>Szkic</p>
-        </div>
-        <div>
-          <h4>Data ostatniej aktualizacji:</h4>
-          <p>
-            {actualisationDate === publicationDate
-              ? formatDate(new Date())
-              : actualisationDate}
-          </p>
-        </div>
-      </div> */}
         <p className={clsx(className, styles.asterisk)}>
           * Pola oznaczone gwiazdką są wymagane!
         </p>
@@ -241,18 +198,10 @@ Component.propTypes = {
   sendForm: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
-  // someProp: reduxSelector(state),
-});
-
 const mapDispatchToProps = dispatch => ({
   sendForm: data => dispatch(sendFormData(data)),
 });
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(null, mapDispatchToProps)(Component);
 
-export {
-  // Component as Form,
-  Container as Form,
-  Component as FormComponent,
-};
+export { Container as Form, Component as FormComponent };

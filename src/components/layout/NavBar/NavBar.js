@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import clsx from 'clsx';
-
 import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 import {
-  // logIn,
   createActionLogIn,
   createActionLogOut,
   createActionLogInAdmin,
@@ -27,16 +23,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-// import ViewArrayIcon from '@mui/icons-material/Notifications';
-import ViewArrayIcon from '@mui/icons-material/ViewArray';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Switch from '@mui/material/Switch';
 import { Container as NavContainer } from '@mui/material';
-
-// import styles from './NavBar.module.scss';
 
 // MUI STYLES--------------------------------------------------
 const Search = styled('div')(({ theme }) => ({
@@ -204,7 +196,6 @@ function Component(props) {
         <FormControlLabel
           control={
             <Switch
-              // checked={logInOut}
               onChange={isLogged ? logOut : logIn}
               aria-label="login switch"
             />
@@ -267,7 +258,6 @@ function Component(props) {
                   >
                     Strona główna
                   </a>
-                  {/* <ViewArrayIcon /> */}
                 </Badge>
               </IconButton>
               <IconButton
@@ -325,7 +315,6 @@ Component.propTypes = {
   logInAdmin: PropTypes.func,
   logOutAdmin: PropTypes.func,
   cart: PropTypes.array,
-  // isUser: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -343,8 +332,4 @@ const mapDispatchToProps = dispatch => ({
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-export {
-  // Component as NavBar,
-  Container as NavBar,
-  Component as NavBarComponent,
-};
+export { Container as NavBar, Component as NavBarComponent };

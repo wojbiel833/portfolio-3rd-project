@@ -12,9 +12,6 @@ import {
   faCreditCard,
 } from '@fortawesome/free-solid-svg-icons';
 
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
-
 import styles from './FeatureBoxes.module.scss';
 
 const Component = ({ className, children }) => (
@@ -60,18 +57,4 @@ Component.propTypes = {
   className: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
-
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-
-export {
-  Component as FeatureBoxes,
-  // Container as FeatureBoxes,
-  Component as FeatureBoxesComponent,
-};
+export { Component as FeatureBoxes, Component as FeatureBoxesComponent };

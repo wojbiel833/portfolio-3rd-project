@@ -1,19 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import clsx from 'clsx';
 
 import { Button } from '../../common/Button/Button';
-
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { Carousel } from '../../common/Carousel/Carousel';
 
 import { connect } from 'react-redux';
 import { getProducts, fetchProducts } from '../../../redux/productsRedux';
 import { addProductToCartRequest } from '../../../redux/cartRedux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './ProductPage.module.scss';
-import { Carousel } from '../../common/Carousel/Carousel';
 
 class Component extends React.Component {
   state = {
@@ -31,23 +28,18 @@ class Component extends React.Component {
 
   submitCartProduct = e => {
     e.preventDefault();
-    console.log(e);
     try {
-      // console.log(this.state);
       const { price, amount, variant } = this.state;
       const { products } = this.props;
       const product = products[0];
-      // console.log(typeof product, product);
       const id = product.id;
       const title = product.title;
 
       const additionalComment = '';
-      // const contactData = {};
 
       let error = null;
 
       if (amount === 0) {
-        // console.log(amount);
         error = 'Musisz wybrać chociaż jeden produkt';
       }
 
@@ -71,30 +63,20 @@ class Component extends React.Component {
           },
         };
 
-        // console.log(formData);
-
         this.setState({ error: null });
-        console.log('udało się', formData);
         this.props.addProduct(formData);
       } else {
         this.setState({ error });
-
-        console.log('nie udało się', error);
       }
     } catch (err) {
       console.log(err);
     }
   };
   render() {
-    // console.log(this.props);
     const {
-      // id,
       className,
-      // children,
-      // products,
-      // id,
+
       title,
-      // description,
       longDescription,
       photo1,
       photo2,
@@ -104,7 +86,6 @@ class Component extends React.Component {
 
     return (
       <div className={clsx(className, styles.root)}>
-        {/* <div key={id}> */}
         <h2 className={clsx(className, styles.title)}>{title}</h2>
         <div className="container">
           <div className={clsx(styles.product)}>
@@ -124,46 +105,47 @@ class Component extends React.Component {
                     Cena i jej warianty
                   </h3>
                   <ul className={clsx(className, styles.priceVariants)}>
-                    {price.priceVariants.map(priceVariant => (
-                      <li
-                        key={priceVariant.price}
-                        className={clsx(className, styles.priceVariant)}
-                      >
-                        <label
-                          className={clsx(className, styles.priceDetail)}
-                          forhtml={`amount${priceVariant.price}`}
+                    {price &&
+                      price.priceVariants.map(priceVariant => (
+                        <li
+                          key={priceVariant.price}
+                          className={clsx(className, styles.priceVariant)}
                         >
-                          {priceVariant.variant}
-                        </label>
-                        <input
-                          className={clsx(className, styles.amount)}
-                          step="1"
-                          min="1"
-                          max="9"
-                          type="number"
-                          id={`amount${priceVariant.price}`}
-                          name={`amount${priceVariant.price}`}
-                          value={this.state.products.amount}
-                          onChange={e => {
-                            this.setState({
-                              ...this.state,
-                              variant: priceVariant.variant,
-                              price: priceVariant.price,
-                              amount: e.target.value,
-                            });
-                          }}
-                        />
+                          <label
+                            className={clsx(className, styles.priceDetail)}
+                            forhtml={`amount${priceVariant.price}`}
+                          >
+                            {priceVariant.variant}
+                          </label>
+                          <input
+                            className={clsx(className, styles.amount)}
+                            step="1"
+                            min="1"
+                            max="9"
+                            type="number"
+                            id={`amount${priceVariant.price}`}
+                            name={`amount${priceVariant.price}`}
+                            value={this.state.products.amount}
+                            onChange={e => {
+                              this.setState({
+                                ...this.state,
+                                variant: priceVariant.variant,
+                                price: priceVariant.price,
+                                amount: e.target.value,
+                              });
+                            }}
+                          />
 
-                        <Button
-                          className={clsx(className, styles.button)}
-                          icon={faCartPlus}
-                          type="submit"
-                          name=""
-                          to=""
-                          onClick={this.submitCartProduct}
-                        />
-                      </li>
-                    ))}
+                          <Button
+                            className={clsx(className, styles.button)}
+                            icon={faCartPlus}
+                            type="submit"
+                            name=""
+                            to=""
+                            onClick={this.submitCartProduct}
+                          />
+                        </li>
+                      ))}
                   </ul>
                   <p className={clsx(className, styles.exception)}>
                     Przy zakupie 10 i wiekszej ilośćci danego produktu prosimy o
@@ -173,10 +155,8 @@ class Component extends React.Component {
               </div>
             </div>
           </div>
-          {/* {children} */}
         </div>
       </div>
-      // </div>
     );
   }
 }
@@ -200,21 +180,18 @@ Component.propTypes = {
 const mapStateToProps = (state, props) => {
   let productParams = {};
   let id;
-  // console.log(state);
-  // console.log(props.match.params.id);
+
   if (props.match.params.id) {
     id = props.match.params.id;
 
     const filteredProducts = state.products.data.filter(
       product => product.id === id
     );
-    // console.log(filteredProducts);
     productParams = filteredProducts[0] || {};
   }
 
   return {
     ...productParams,
-    // products: state.products.data,
     products: getProducts(state, id),
   };
 };
@@ -226,8 +203,4 @@ const mapDispatchToProps = dispatch => ({
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-export {
-  // Component as ProductPage,
-  Container as ProductPage,
-  Component as ProductPageComponent,
-};
+export { Container as ProductPage, Component as ProductPageComponent };

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import clsx from 'clsx';
+
 import { Button } from '../../common/Button/Button';
+import { Form } from '../../features/Form/Form';
 
 import { connect } from 'react-redux';
 import {
@@ -11,25 +12,13 @@ import {
   deleteProductFromCart,
 } from '../../../redux/cartRedux';
 
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-
-// import TextField from '@mui/material/TextField';
-
 import styles from './Cart.module.scss';
-import { Form } from '../../features/Form/Form';
 
 class Component extends React.Component {
   state = {
-    additionalComment: '',
-    id: '',
-    _id: '',
-    priceDescription: '',
-    price: 0,
-    totalPrice: 0,
-    amount: 0,
-    products: {},
+    cart: [],
     error: null,
   };
 
@@ -38,10 +27,23 @@ class Component extends React.Component {
     fetchCart();
   }
 
-  updateCartProduct = e => {
-    e.preventDefault();
+  componentDidUpdate(prevProps) {
+    if (this.props.cart !== prevProps.cart) {
+      this.setState({ ...this.state, cart: this.props.cart });
+    }
+  }
 
+  handleChange(index, field, value) {
+    const cartCopy = [...this.state.cart];
+
+    cartCopy[index][field] = value;
+
+    this.setState({ ...this.state, cart: cartCopy });
+  }
+
+  updateCartProduct(productId) {
     try {
+      const product = this.state.cart.find(el => el.id === productId);
       const {
         id,
         _id,
@@ -50,9 +52,8 @@ class Component extends React.Component {
         amount,
         additionalComment,
         title,
-      } = this.state;
-      const { cart } = this.props;
-      console.log(id);
+      } = product;
+
       const contactData = {
         name: '',
         email: '',
@@ -67,7 +68,6 @@ class Component extends React.Component {
       let error = null;
 
       if (amount === 0) {
-        // console.log(amount);
         error = 'Musisz wybrać chociaż jeden produkt';
       }
 
@@ -83,51 +83,34 @@ class Component extends React.Component {
           contactData: contactData,
         };
 
-        // console.log(formData);
-
         this.setState({ error: null });
-        this.forceUpdate();
-        // console.log('udało się', formData);
+
         this.props.updateProduct(formData);
       } else {
         this.setState({ error });
-
-        console.log('nie udało się', error);
       }
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 
-  deleteCartProduct = e => {
-    e.preventDefault();
-
-    const product =
-      e.target.parentNode.parentNode.parentNode.parentNode.parentNode;
-    console.log(product);
-    const productId = product.getAttribute('id');
-    console.log('productId', productId);
-
+  deleteCartProduct(productId) {
     const { cart } = this.props;
-    // console.log(cart);
     const filteredCart = cart.filter(el => el.id === productId);
-    // console.(filteredCart);
     const cartProduct = filteredCart[0];
     console.log(cartProduct);
 
     try {
       this.props.deleteProduct(cartProduct);
-      this.forceUpdate();
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 
   render() {
-    const { className, cart } = this.props;
-
+    const { cart } = this.state;
+    const { className } = this.props;
     const countSummaryPrice = cart => {
-      // console.log(cart);
       let prices = [];
       let amounts = [];
 
@@ -135,8 +118,6 @@ class Component extends React.Component {
         prices.push(p.price);
         amounts.push(p.amount);
       });
-      // console.log(prices);
-      // console.log(amounts);
 
       let productPrice = 0;
       let totalPrice = 0;
@@ -145,8 +126,7 @@ class Component extends React.Component {
 
         totalPrice += productPrice;
       }
-      // this.setState({ totalPrice: totalPrice });
-      // console.log(totalPrice);
+
       return totalPrice;
     };
 
@@ -155,8 +135,7 @@ class Component extends React.Component {
         <h2 className={clsx(className, styles.title)}>Twój koszyk</h2>
         <div className={clsx(className, styles.cart)}>
           {cart[0] ? (
-            cart.map(product => {
-              console.log(product);
+            cart.map((product, index) => {
               return (
                 <div
                   className={clsx(className, styles.product)}
@@ -179,57 +158,47 @@ class Component extends React.Component {
                   <span className={clsx(className, styles.edit)}>
                     <input
                       className={clsx(className, styles.amount)}
-                      // onChange={}
                       placeholder={product.amount}
                       step="1"
                       min="1"
                       max="9"
                       type="number"
-                      // id={`amount${priceVariant.price}`}
-                      // name={`amount${priceVariant.price}`}
-                      value={'' ? product.amount : this.state.products.amount}
-                      // value={ this.state.products.amount}
-                      onChange={e => {
-                        this.setState({
-                          ...this.state,
-                          amount: e.target.value,
-                          id: product.id,
-                          _id: product._id,
-                          title: product.title,
-                          price: product.price,
-                          priceDescription: product.priceDescription,
-                        });
-                      }}
+                      value={product.amount}
+                      onChange={e =>
+                        this.handleChange(index, 'amount', e.target.value)
+                      }
                     />
                     <input
                       className={clsx(className, styles.comment)}
                       placeholder={product.additionalComment}
-                      // onChange={}
-                      // value={
-                      //   ''
-                      //     ? product.additionalComment
-                      //     : this.state.additionalComment
-                      // }
+                      value={product.additionalComment}
                       type="text"
-                      onChange={e => {
-                        this.setState({
-                          ...this.state,
-                          additionalComment: e.target.value,
-                        });
-                      }}
+                      onChange={e =>
+                        this.handleChange(
+                          index,
+                          'additionalComment',
+                          e.target.value
+                        )
+                      }
                       id={`additionalComment${product.price}`}
                       name={`additionalComment${product.price}`}
                     />
                     <Button
                       className={clsx(className, styles.button)}
                       icon={faSave}
-                      onClick={this.updateCartProduct}
+                      onClick={e => {
+                        e.preventDefault();
+                        this.updateCartProduct(product.id);
+                      }}
                       to=""
                     />
                     <Button
                       className={clsx(className, styles.button)}
                       icon={faTrashAlt}
-                      onClick={this.deleteCartProduct}
+                      onClick={e => {
+                        e.preventDefault();
+                        this.deleteCartProduct(product.id);
+                      }}
                       to=""
                     />
                   </span>
@@ -238,11 +207,9 @@ class Component extends React.Component {
             })
           ) : (
             <div className={clsx(className, styles.product)}>
-              {/* <span className={clsx(className, styles.info)}> */}
               <p className={clsx(className, styles.emptyCart)}>
                 Twój koszyk jest pusty
               </p>
-              {/* </span> */}
             </div>
           )}
 
@@ -255,8 +222,6 @@ class Component extends React.Component {
             </p>
           </div>
         </div>
-
-        {/* {children} */}
         <Form cart={cart} />
       </div>
     );
@@ -289,8 +254,4 @@ const mapDispatchToProps = dispatch => ({
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-export {
-  // Component as Cart,
-  Container as Cart,
-  Component as CartComponent,
-};
+export { Container as Cart, Component as CartComponent };
